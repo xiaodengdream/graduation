@@ -1,97 +1,90 @@
 <template>
   <el-row class="tac">
-    <div>
-      <el-menu
-        :default-active="activeIndex1"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <div class="title">
-          <el-menu-item index="1">处理中心</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">我的工作台</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项1</el-menu-item>
-              <el-menu-item index="2-4-2">选项2</el-menu-item>
-              <el-menu-item index="2-4-3">选项3</el-menu-item>
-            </el-submenu>
+    <el-menu
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <div class="title">
+        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-submenu index="2">
+          <template slot="title">我的工作台</template>
+          <el-menu-item index="2-1">选项1</el-menu-item>
+          <el-menu-item index="2-2">选项2</el-menu-item>
+          <el-menu-item index="2-3">选项3</el-menu-item>
+          <el-submenu index="2-4">
+            <template slot="title">选项4</template>
+            <el-menu-item index="2-4-1">选项1</el-menu-item>
+            <el-menu-item index="2-4-2">选项2</el-menu-item>
+            <el-menu-item index="2-4-3">选项3</el-menu-item>
           </el-submenu>
-          <el-menu-item index="3">消息中心</el-menu-item>
-          <el-menu-item index="4"
-            ><a href="https://www.ele.me" target="_blank"
-              >订单管理</a
-            ></el-menu-item
-          >
-          <img alt="Vue logo" class="avatar" src="../assets/bg1.jpg" />
-        </div>
-      </el-menu>
-    </div>
+        </el-submenu>
+        <el-menu-item index="3">消息中心</el-menu-item>
+        <el-menu-item index="4"
+          ><a
+            style="color: white; text-decoration: none"
+            href="https://www.ele.me"
+            target="_blank"
+            >订单管理</a
+          ></el-menu-item
+        >
+      </div>
+      <div @click="quite">
+        <img alt="Vue logo" class="avatar" src="../assets/bg1.jpg" />
+      </div>
+    </el-menu>
     <div class="left">
       <el-menu
-        :default-active="activeIndex2"
+        :default-active="this.$route.name"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
+        router
       >
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-s-home"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
+        <el-menu-item index="salaryinfo">
+          <!-- <template slot="title"> -->
+          <i class="el-icon-s-home"></i>
+          <span>个人首页</span>
+          <!-- </template> -->
+          <!-- <el-menu-item-group>
+           
+            <el-menu-item index="1-1">个人工资</el-menu-item>
+            <el-menu-item index="1-2">我的资料</el-menu-item>
+          </el-menu-item-group> -->
+          <!-- <el-menu-item-group title="分组2">
             <el-menu-item index="1-3">选项3</el-menu-item>
           </el-menu-item-group>
           <el-submenu index="1-4">
             <template slot="title">选项4</template>
             <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
+          </el-submenu> -->
+        </el-menu-item>
+        <el-menu-item index="1" disabled>
           <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
+          <span slot="title">工资管理</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="2" disabled>
           <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
+          <span slot="title">员工管理</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="3" disabled>
           <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
+          <span slot="title">密码找回</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="personinfo">
           <i class="el-icon-s-check"></i>
-          <span slot="title">导航五</span>
+          <span slot="title">个人中心</span>
         </el-menu-item>
         <div class="list"></div>
       </el-menu>
     </div>
     <div class="body">
-      <el-table :data="tableData" border show-summary style="width: 100%">
-        <el-table-column prop="id" label="ID" width="180"> </el-table-column>
-        <el-table-column prop="name" label="姓名"> </el-table-column>
-        <el-table-column prop="amount1" sortable label="数值 1">
-        </el-table-column>
-        <el-table-column prop="amount2" sortable label="数值 2">
-        </el-table-column>
-        <el-table-column prop="amount3" sortable label="数值 3">
-        </el-table-column>
-      </el-table>
+      <router-view></router-view>
     </div>
   </el-row>
 </template>
@@ -99,59 +92,7 @@
 export default {
   data() {
     return {
-      activeIndex1: "3",
-      activeIndex2: "2",
-      tableData: [
-        {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2",
-          amount3: 10,
-        },
-        {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: 12,
-        },
-        {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: 9,
-        },
-        {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2",
-          amount3: 17,
-        },
-        {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: 15,
-        },
-         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: 15,
-        },
-         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: 15,
-        },
-      ],
+      activeIndex: "1",
     };
   },
   methods: {
@@ -161,6 +102,12 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    quite() {
+      this.$router.push("/");
+    },
+  },
+  mounted: function () {
+    // console.log(this.$route)
   },
 };
 </script>
@@ -168,15 +115,15 @@ export default {
 .title {
   display: flex;
   flex-direction: row;
-  padding-left: 30%;
-  padding-right: 30%;
+  padding: 0 28% 0 28%;
   justify-content: space-around;
 }
 .left {
   float: left;
-  width: 22%;
+  width: 20%;
   margin-top: -2px;
   background-color: #545c64;
+  overflow: hidden;
 }
 .list {
   height: 386px;
@@ -191,6 +138,9 @@ export default {
 }
 .body {
   float: right;
-  width: 78%;
+  width: 80%;
+  height: 663px;
+  background: #eee;
+  overflow: scroll;
 }
 </style>

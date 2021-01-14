@@ -2,7 +2,7 @@
   <div class="content">
     <img alt="Vue logo" class="bg" src="../assets/bg1.jpg" />
     <div class="login_box">
-      <div class="title">员工登录</div>
+      <div class="title">{{ radio }}登录</div>
       <el-form
         :model="ruleForm"
         status-icon
@@ -29,6 +29,8 @@
           ></el-input>
         </el-form-item>
         <el-form-item class="btn">
+          <el-radio v-model="radio" label="员工">员工</el-radio>
+          <el-radio v-model="radio" label="管理员">管理员</el-radio>
           <el-button type="primary" @click="submitForm('ruleForm')"
             >登录</el-button
           >
@@ -50,14 +52,20 @@ export default {
       }
       if (value.length <= 3) {
         callback(new Error("字段长度应大于3"));
+      } else {
+        callback();
       }
     };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
+      } else {
+        callback();
       }
     };
     return {
+      radio: "员工",
+      ID: "",
       ruleForm: {
         password: "",
         account: "",
@@ -70,33 +78,40 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$http
-        .post("http://localhost:1000/login", {
-          accounts: this.ruleForm.account,
-          password: this.ruleForm.password,
-        })
-        .then((data) => {
-          console.log(data);
-          if (data.data.code == 0) {
-            this.$message({
-              showClose: true,
-              message: data.data.message,
-              type: "success",
-              duration: 1000,
-            });
-            this.$router.push("employee").catch((err) => {});
-          } else {
-            this.$message({
-              showClose: true,
-              message: data.data.message,
-              type: "error",
-              duration: 1000,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (this.radio == "员工") {
+        this.$http
+          .post("http://localhost:1000/login", {
+            accounts: this.ruleForm.account,
+            password: this.ruleForm.password,
+          })
+          .then((data) => {
+            //console.log(data);
+            if (data.data.code == 0) {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "success",
+                duration: 1000,
+              });
+              // localStorage.setItem("token",data.data.token)
+              this.$store.commit("getinfo", data.data.data);
+              this.$router.push("/employee/salaryinfo").catch((err) => {});
+            } else {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "error",
+                duration: 1000,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      else{
+        alert('ddd')
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
