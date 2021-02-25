@@ -1,27 +1,73 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home'
 import Login from '@/views/Login'
-import Employee from '@/views/Employee '
-import SalaryInfo from '@/views/SalaryInfo'
-import PersonInfo from '@/views/PersonInfo'
+import PersonInfo from '@/views/Employee/PersonInfo'
+import SalaryInfo from '@/views/Employee/SalaryInfo'
+import Employee from '@/views/Employee/Employee'
+import InfoUpdate from '@/views/Employee/InfoUpdate'
+import Admin from '@/views/Admin/Admin'
+import Employees from '@/views/Admin/Employees'
+import AdminInfo from '@/views/Admin/AdminInfo'
+import AdmInfoUpdate from '@/views/Admin/AdmInfoUpdate'
+import FindPs from '@/views/Employee/FindPs'
+import SalarysInfo from '@/views/Admin/SalarysInfo'
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: 'login' },
   { path: '/login', name: 'Login', component: Login },
-  { path: '/home', name: 'Home', component: Home },
+  {
+    path: '/admin', name: 'admin', component: Admin, children: [
+      {
+        path: 'adminfoupdate',
+        name: 'adminfoupdate',
+        component: AdmInfoUpdate
+      },
+      {
+        path: 'salarysinfo',
+        name: 'salarysinfo',
+        component: SalarysInfo
+      },
+      {
+        path: 'employees',
+        name: 'employees',
+        component: Employees
+      },
+      {
+        path: 'findps',
+        name: 'findps',
+        component: FindPs
+      },
+      {
+        path: 'admininfo',
+        name: 'admininfo',
+        component: AdminInfo
+      },
+
+    ]
+  },
   {
     path: '/employee', name: 'Employee', component: Employee, children: [
-      {
-        path: 'personinfo',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-        name: 'personinfo',
-        component: PersonInfo
-      },
+
       {
         path: 'salaryinfo',
         name: 'salaryinfo',
         component: SalaryInfo
+      },
+      {
+        path: 'infoupdate',
+        name: 'infoupdate',
+        component: InfoUpdate
+      },
+      {
+        path: 'findps',
+        name: 'findps',
+        component: FindPs
+      },
+      {
+        path: 'personinfo',
+        name: 'personinfo',
+        component: PersonInfo
       },
     ]
   }

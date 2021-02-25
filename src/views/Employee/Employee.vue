@@ -32,7 +32,7 @@
         >
       </div>
       <div @click="quite">
-        <img alt="Vue logo" class="avatar" src="../assets/bg1.jpg" />
+        <img alt="Vue logo" class="avatar" src="../../assets/bg1.jpg" />
       </div>
     </el-menu>
     <div class="left">
@@ -47,32 +47,18 @@
         router
       >
         <el-menu-item index="salaryinfo">
-          <!-- <template slot="title"> -->
           <i class="el-icon-s-home"></i>
           <span>个人首页</span>
-          <!-- </template> -->
-          <!-- <el-menu-item-group>
-           
-            <el-menu-item index="1-1">个人工资</el-menu-item>
-            <el-menu-item index="1-2">我的资料</el-menu-item>
-          </el-menu-item-group> -->
-          <!-- <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu> -->
         </el-menu-item>
         <el-menu-item index="1" disabled>
           <i class="el-icon-menu"></i>
           <span slot="title">工资管理</span>
         </el-menu-item>
-        <el-menu-item index="2" disabled>
+        <el-menu-item index="infoupdate">
           <i class="el-icon-document"></i>
-          <span slot="title">员工管理</span>
+          <span slot="title">信息管理</span>
         </el-menu-item>
-        <el-menu-item index="3" disabled>
+        <el-menu-item index="findps">
           <i class="el-icon-setting"></i>
           <span slot="title">密码找回</span>
         </el-menu-item>
@@ -140,7 +126,7 @@ export default {
   float: right;
   width: 80%;
   height: 663px;
-  background: #eee;
+  background: rgba(237, 237, 243);
   overflow: scroll;
 }
 </style>

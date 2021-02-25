@@ -38,8 +38,13 @@ export default {
   },
 };
 </script>
-<style>
-.content {
+<style scoped>
+#body_title {
+  font-size: 16px;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  margin: 28px 0 28px 50px;
 }
 .info {
   background-color: #fff;
@@ -48,7 +53,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-radius: 10px;
+  border: 1px solid rgba(220, 220, 220, 0.8);
+  box-shadow: 5px 5px 5px rgba(220, 220, 220, 0.8);
 }
 .info1 {
   width: 100%;

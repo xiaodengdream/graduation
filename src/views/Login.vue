@@ -108,9 +108,36 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      }
-      else{
-        alert('ddd')
+      } else {
+        this.$http
+          .post("http://localhost:1000/admin", {
+            accounts: this.ruleForm.account,
+            password: this.ruleForm.password,
+          })
+          .then((data) => {
+           // console.log(data);
+            if (data.data.code == 0) {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "success",
+                duration: 1000,
+              });
+              // localStorage.setItem("token",data.data.token)
+              this.$store.commit("getinfo", data.data.data);
+              this.$router.push("/admin/adminfoupdate").catch((err) => {});
+            } else {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "error",
+                duration: 1000,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     resetForm(formName) {
