@@ -11,6 +11,10 @@ import AdminInfo from '@/views/Admin/AdminInfo'
 import AdmInfoUpdate from '@/views/Admin/AdmInfoUpdate'
 import FindPs from '@/views/Employee/FindPs'
 import SalarysInfo from '@/views/Admin/SalarysInfo'
+import Senior from '@/views/SeniorAdmin/Senior'
+import SeniorUpdate from '@/views/SeniorAdmin/SeniorUpdate'
+import SeniorInfo from '@/views/SeniorAdmin/SeniorInfo'
+import Allemployees from '@/views/SeniorAdmin/Allemployees'
 Vue.use(VueRouter)
 
 const routes = [
@@ -42,6 +46,31 @@ const routes = [
         path: 'admininfo',
         name: 'admininfo',
         component: AdminInfo
+      },
+
+    ]
+  },
+  {
+    path: '/senior', name: 'senior', component: Senior, children: [
+      {
+        path: 'seniorupdate',
+        name: 'seniorupdate',
+        component: SeniorUpdate
+      },
+      {
+        path: 'allemployees',
+        name: 'allemployees',
+        component: Allemployees
+      },
+      {
+        path: 'findps',
+        name: 'findps',
+        component: FindPs
+      },
+      {
+        path: 'seniorinfo',
+        name: 'seniorinfo',
+        component: SeniorInfo
       },
 
     ]

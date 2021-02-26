@@ -124,6 +124,7 @@ export default {
           }
         });
       } else {
+        if(this.$store.state.data[0].eamil){
         newps.getnewadmps(this.phone).then((data) => {
           if (data == "") {
             this.$message({
@@ -140,7 +141,26 @@ export default {
             this.vd = Math.floor(Math.random() * (9999 - 1000)) + 1000;
             //console.log(data[0].password)
           }
-        });
+        })}
+        else{
+          newps.getnewsenior(this.phone).then((data) => {
+          if (data == "") {
+            this.$message({
+              showClose: true,
+              message: "无效号码",
+              type: "warning",
+              duration: 1000,
+            });
+          } else {
+            this.show1 = false;
+            this.show2 = true;
+            this.cg = 2;
+            this.passwords = data[0].password;
+            this.vd = Math.floor(Math.random() * (9999 - 1000)) + 1000;
+            //console.log(data[0].password)
+          }
+        })
+        }
       }
     },
     sbcode() {

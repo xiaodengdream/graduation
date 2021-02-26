@@ -29,14 +29,19 @@
           ></el-input>
         </el-form-item>
         <el-form-item class="btn">
+          <div style="float:left;margin-bottom:10px">
           <el-radio v-model="radio" label="员工">员工</el-radio>
-          <el-radio v-model="radio" label="管理员">管理员</el-radio>
-          <el-button type="primary" @click="submitForm('ruleForm')"
+           <el-radio v-model="radio" label="一级管理">一级管理</el-radio>
+          <el-radio v-model="radio" label="二级管理">二级管理</el-radio>
+          </div>
+          <div style="float:right">
+          <el-button style="margin-right:10px" type="primary" @click="submitForm('ruleForm')"
             >登录</el-button
           >
-          <el-button type="primary" @click="resetForm('ruleForm')"
+          <el-button style="" type="primary" @click="resetForm('ruleForm')"
             >重置</el-button
           >
+          </div>
         </el-form-item>
       </el-form>
     </div>
@@ -108,7 +113,7 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      } else {
+      } else if(this.radio == "二级管理") {
         this.$http
           .post("http://localhost:1000/admin", {
             accounts: this.ruleForm.account,
@@ -139,6 +144,37 @@ export default {
             console.log(error);
           });
       }
+      else if(this.radio == "一级管理") {
+        this.$http
+          .post("http://localhost:1000/senior", {
+            accounts: this.ruleForm.account,
+            password: this.ruleForm.password,
+          })
+          .then((data) => {
+           // console.log(data);
+            if (data.data.code == 0) {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "success",
+                duration: 1000,
+              });
+              // localStorage.setItem("token",data.data.token)
+              this.$store.commit("getinfo", data.data.data);
+              this.$router.push("/senior/seniorupdate").catch((err) => {});
+            } else {
+              this.$message({
+                showClose: true,
+                message: data.data.message,
+                type: "error",
+                duration: 1000,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -156,8 +192,8 @@ export default {
   color: rgba(1, 177, 255, 1);
   font-family: "Courier New", Courier, monospace;
   font-size: 28px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 15px;
   font-weight: bold;
 }
 .login_box {
